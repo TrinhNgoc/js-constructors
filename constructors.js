@@ -50,7 +50,12 @@ kamehameha.printDetails();
  * @property {number} mana
  * @property {number} damage
  */
+function DamageSpell(name, cost, damage, description) {
+	Spell.call(this, name, cost, description);
+	this.damage = damage;
+}
 
+DamageSpell.prototype = new Spell();
 /**
  * Now that you've created some spells, let's create
  * `Spellcaster` objects that can use them!
