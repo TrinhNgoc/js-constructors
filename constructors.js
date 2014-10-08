@@ -19,13 +19,13 @@ function Spell(name, cost, description) {
    * @name printDetails
    */
     this.printDetails = function () {
-    	return this.name+ " " +this.cost+ " "+this.description;
+    	console.log(this.name+ " " +this.cost+ " "+this.description);
 	}
 }
     
 var kamehameha = new Spell ("Kamehameha", 100, "A charged energy blast.");
 
-console.log(kamehameha.printDetails());
+kamehameha.printDetails();
 /**
  * A spell that deals damage.
  * We want to keep this code DRY (Don't Repeat Yourself).
