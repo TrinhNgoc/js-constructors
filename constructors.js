@@ -9,13 +9,23 @@
  * @property {number} cost
  * @property {string} description
  */
-
-  /**
+function Spell(name, cost, description) {
+    this.name = name;
+    this.cost = cost;
+    this.description = description;
+      /**
    * Print out all spell details and format it nicely.
    * The format doesnt matter, as long as it contains the spell name, cost, and description.
    * @name printDetails
    */
+    this.printDetails = function () {
+    	return this.name+ " " +this.cost+ " "+this.description;
+	}
+}
+    
+var kamehameha = new Spell ("Kamehameha", 100, "A charged energy blast.");
 
+console.log(kamehameha.printDetails());
 /**
  * A spell that deals damage.
  * We want to keep this code DRY (Don't Repeat Yourself).
