@@ -76,7 +76,6 @@ function Spellcaster(name, health, mana) {
 	this.isAlive = true;
 }
 
-var goku = new Spellcaster("Goku", 500, 500);
   /**
    * The spellcaster loses health equal to `damage`.
    * Health should never be negative.
@@ -88,10 +87,10 @@ var goku = new Spellcaster("Goku", 500, 500);
    */
 Spellcaster.prototype.inflictDamage = function (damage) {
 	this.health = this.health - damage;
-	if (this.health < 0) {
+	if (this.health < 0) { //overkill
 		this.health = 0;
 	}
-	if (this.health === 0) {
+	if (this.health === 0) { //dies
 		this.isAlive = false;
 	}
    }
@@ -104,8 +103,8 @@ Spellcaster.prototype.inflictDamage = function (damage) {
    * @return {boolean} success  Whether mana was successfully spent.
    */
 Spellcaster.prototype.spendMana = function (cost) {
-	if (cost < this.mana) {
-		this.mana = this.mana - cost;
+	if (cost <= this.mana) {
+		this.mana -= cost;
 		return true;
 	}
 	else {
@@ -137,13 +136,25 @@ Spellcaster.prototype.spendMana = function (cost) {
    * @param  {Spellcaster} target         The spell target to be inflicted.
    * @return {boolean}                    Whether the spell was successfully cast.
    */
-Spellcaster.prototype.invoke = function(DamageSpell, Spellcaster) {
-	if (DamageSpell instanceof Spell) {
-		
-		return true;
+Spellcaster.prototype.invoke = function(spell,target) {
+	if (spell instanceof Spell) {
+		if (spell instanceof DamageSpell) { //checks if spell does damage
+			if (target instanceof Spellcaster) { //checks for target
+				if (this.spendMana(spell.cost)) { //checks for mana
+					target.inflictDamage(spell.damage); //target receives damage
+					return true;
+				}
+				else {
+					return false; //not enough mana
+				}
+			}
+			else {
+				return false; //no target
+			}
+		}
+		return this.spendMana(spell.cost); //checks if Spellcaster has enough mana
 	}
 	else {
-		return false;
+		return false; 
 	}
 }
-	
