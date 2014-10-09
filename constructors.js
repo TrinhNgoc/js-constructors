@@ -69,7 +69,12 @@ DamageSpell.prototype = new Spell();
  * @property {mana} mana
  * @property {boolean} isAlive  Default value should be `true`.
  */
-
+function Spellcaster(name, health, mana) {
+	this.name = name;
+	this.health = health;
+	this.mana = mana;
+	this.isAlive = true;
+}
   /**
    * The spellcaster loses health equal to `damage`.
    * Health should never be negative.
@@ -79,7 +84,15 @@ DamageSpell.prototype = new Spell();
    * @name inflictDamage
    * @param  {number} damage  Amount of damage to deal to the spellcaster
    */
-
+Spellcaster.prototype.inflictDamage = function (damage) {
+	this.health = this.health - damage;
+	if (this.health < 0) {
+		this.health = 0;
+	}
+	if (this.health === 0) {
+		this.isAlive = false;
+	}
+   }
   /**
    * Reduces the spellcaster's mana by `cost`.
    * Mana should only be reduced only if there is enough mana to spend.
@@ -88,7 +101,15 @@ DamageSpell.prototype = new Spell();
    * @param  {number} cost      The amount of mana to spend.
    * @return {boolean} success  Whether mana was successfully spent.
    */
-
+Spellcaster.prototype.spendMana = function (cost) {
+	if (cost < this.mana) {
+		this.mana = this.mana - cost;
+		return true;
+	}
+	else {
+		return false;
+	}
+}
   /**
    * Allows the spellcaster to cast spells.
    * The first parameter should either be a `Spell` or `DamageSpell`.
